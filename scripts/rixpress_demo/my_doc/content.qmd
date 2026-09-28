@@ -1,0 +1,7 @@
+This is code from the file `content.qmd`.
+
+
+
+```{r}
+sessionInfo()
+```

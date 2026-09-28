@@ -1,0 +1,1 @@
+print(inspect_pipeline())

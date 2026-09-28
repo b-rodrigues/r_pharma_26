@@ -1,0 +1,30 @@
+[project]
+name = "r_py_xgboost_t"
+description = "A T data analysis project"
+authors = []
+
+[dependencies]
+
+[r-dependencies]
+packages = ["dplyr", "yardstick", "arrow", "knitr", "rmarkdown", "jsonlite"]
+
+[py-dependencies]
+version = "python313"
+packages = ["numpy", "pandas", "scikit-learn", "xgboost", "pyarrow", "ipykernel", "nbclient", "nbformat", "pyyaml"]
+
+[jl-dependencies]
+version = "lts"
+packages = []
+
+[additional-tools]
+packages = ["quarto", "which"]
+
+[latex]
+packages = []
+
+[t]
+min_version = "0.55.3"
+
+[nixpkgs]
+date = ""
+
