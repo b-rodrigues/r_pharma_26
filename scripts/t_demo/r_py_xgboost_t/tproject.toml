@@ -23,7 +23,7 @@ packages = ["quarto", "which"]
 packages = []
 
 [t]
-min_version = "0.55.3"
+min_version = "0.55.4"
 
 [nixpkgs]
 date = ""
