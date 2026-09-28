@@ -1,8 +1,8 @@
 {
-  description = "testcraft_expectations_t — a T data analysis project";
+  description = "r_py_xgboost_t — a T data analysis project";
 
   inputs = {
-    nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-06-23";
+    nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-09-23";
     flake-utils.url = "github:numtide/flake-utils";
     t-lang.url = "github:b-rodrigues/tlang/v0.55.3";
   };
@@ -21,18 +21,58 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
+        rpkgs = with pkgs.rPackages; [
+          t-lang.packages.${system}.tlang-r
+          dplyr
+          yardstick
+          arrow
+          knitr
+          rmarkdown
+          jsonlite
+        ];
+
         # R environment
-        r-env = pkgs.rWrapper.override {
-          packages = with pkgs.rPackages; [
-            t-lang.packages.${system}.tlang-r
-            arrow
-          ];
-        };
+        r-env = (pkgs.rWrapper.override {
+          packages = rpkgs;
+        }).overrideAttrs (finalAttrs: previousAttrs: {
+          buildCommand = previousAttrs.buildCommand + ''
+            # Positron on Linux only lists an R binary that looks like the
+            # official R shell wrapper (see getRHomePathLinux in
+            # extensions/positron-r/src/r-installation.ts): the file must
+            # contain '# Shell wrapper for R executable', a 'R_HOME_DIR=...' line,
+            # and an 'if test "''${R_HOME_DIR}" = "..."; then' line. rWrapper
+            # ships $out/bin/R as an ELF binary (makeWrapper), so move it aside
+            # and expose a small shell shim with the same package environment.
+            if [ ! -f "$out/bin/R" ]; then
+              echo "r-env: expected $out/bin/R to exist" >&2
+              exit 1
+            fi
+            mv "$out/bin/R" "$out/bin/.R-elf"
+            rHome="${pkgs.R}/lib/R"
+            { echo '#!/bin/sh';
+              echo '# Shell wrapper for R executable.';
+              echo "R_HOME_DIR=\"$rHome\"";
+              echo 'if test "''${R_HOME_DIR}" = "'"$rHome"'"; then';
+              echo '  :';
+              echo 'fi';
+              echo "exec \"$out/bin/.R-elf\" \"\$@\"";
+            } > "$out/bin/R"
+            chmod +x "$out/bin/R"
+          '';
+        });
 
         # Python environment
-        py-env = pkgs.python314.withPackages (python-pkgs: with python-pkgs; [
+        py-env = pkgs.python313.withPackages (python-pkgs: with python-pkgs; [
           deepdiff
+          numpy
           pandas
+          scikit-learn
+          xgboost
+          pyarrow
+          ipykernel
+          nbclient
+          nbformat
+          pyyaml
         ]);
 
         # Julia environment
@@ -40,6 +80,7 @@
 
         # Additional Tools
         additionalTools = with pkgs; [
+          quarto
           which
         ];
       in
@@ -148,7 +189,7 @@ EOF
             export PATH="$python_guard_bin:$PATH"
             export PYTHONPATH="$python_guard_lib:''${PYTHONPATH:-}"
             echo "=================================================="
-            echo "T Project: testcraft_expectations_t"
+            echo "T Project: r_py_xgboost_t"
             echo "=================================================="
             echo ""
             echo "Available commands:"
@@ -159,6 +200,31 @@ EOF
             echo "To add dependencies:"
             echo "  * Add them to tproject.toml"
             echo "  * Run 't update' to sync flake.nix"
+            echo ""
+            mkdir -p _extensions
+            expected_quarto_ext="${t-lang.packages.${system}.default}/share/tlang/quarto/tlang"
+            quarto_ext_path="_extensions/tlang"
+            quarto_ext_stamp="$quarto_ext_path/.tlang-store-path"
+            provision_quarto_ext() {
+              rm -rf "$quarto_ext_path"
+              mkdir -p "$quarto_ext_path"
+              cp -R "$expected_quarto_ext"/. "$quarto_ext_path"/
+              printf '%s\n' "$expected_quarto_ext" > "$quarto_ext_stamp"
+              echo "Provisioned T Quarto extension at _extensions/tlang"
+            }
+            if [ -L "$quarto_ext_path" ]; then
+              provision_quarto_ext
+            elif [ -d "$quarto_ext_path" ] && [ -f "$quarto_ext_stamp" ]; then
+              current_quarto_ext="$(cat "$quarto_ext_stamp")"
+              if [ "$current_quarto_ext" != "$expected_quarto_ext" ]; then
+                provision_quarto_ext
+              fi
+            elif [ -e "$quarto_ext_path" ]; then
+              echo "Quarto extension path _extensions/tlang already exists; leaving it unchanged."
+            else
+              provision_quarto_ext
+            fi
+            echo "Quarto is enabled via [additional-tools]. Render {t} chunks with filters: [tlang]."
             echo ""
           '';
         };

@@ -1,5 +1,7 @@
 ---
-title: "Reproducible data science with Nix and T"
+title: "A Practical Introduction to Reproducible R with Nix & rix"
+subtitle: "R/Pharma 2026 Workshop (Sep 28 – Oct 1) • Conference: Oct 20 – 21"
+date: "October 1, 2026"
 author: "Bruno Rodrigues"
 format:
   revealjs:
@@ -56,15 +58,22 @@ and Higher Education in Luxembourg
 
 Slides available online:
 
-[https://b-rodrigues.github.io/repro_r_pharma](https://b-rodrigues.github.io/repro_r_pharma)
+[https://b-rodrigues.github.io/r_pharma_26](https://b-rodrigues.github.io/r_pharma_26)
 
 Code available here:
 
-[https://github.com/b-rodrigues/repro_r_pharma](https://github.com/b-rodrigues/repro_r_pharma)
+[https://github.com/b-rodrigues/r_pharma_26](https://github.com/b-rodrigues/r_pharma_26)
 
 ## What I'll be talking about
 
-- Reproducibility of data projects
+- The reproducibility challenge in R (and limits of `{renv}` & Docker)
+- Introduction to the Nix package manager
+- `{rix}`: generating declarative, reproducible R environments
+- Interactive workflows (RStudio, Positron, VS Code)
+- Production pipelines with `{targets}` and Nix
+- Nix in production: Docker, Shiny, and GitHub Actions
+- Polyglot pipelines with `{rixpress}`
+- **Bonus (if time allows)**: A peek at **T**, a language reproducible by design
 
 ## Available solutions for R
 
@@ -109,12 +118,12 @@ A popular package manager:
 ```{r, eval = FALSE}
 library(rix)
 
-rix(date = "2025-06-13",
+rix(date = "2026-09-23",
     r_pkgs = c("dplyr", "ggplot2"),
     system_pkgs = NULL,
     git_pkgs = NULL,
     tex_pkgs = NULL,
-    ide = "code",
+    ide = "rstudio",
     project_path = ".")
 ```
 
@@ -134,7 +143,7 @@ rix(date = "2025-06-13",
 . . .
 
 ```{r, eval = FALSE}
-rix(date = "2025-06-09",
+rix(date = "2026-01-14",
     r_pkgs = c("tidyr", "dplyr", "ggplot2", "languageserver"),
     py_conf = list(
       py_version = "3.13", 
@@ -156,6 +165,8 @@ rix(date = "2025-06-09",
 - Nix and Docker: `scripts/nix_expressions/04_docker/`
 - Nix and `{shiny}`: `scripts/nix_expressions/05_shiny`
 - GitHub Actions: [see here](https://github.com/b-rodrigues/rix_paper/tree/master)
+- Polyglot pipelines with `{rixpress}`: `scripts/rixpress_demo/`
+- Polyglot pipelines with **T** (bonus): `scripts/t_demo/r_py_xgboost_t/`
 
 ## Polyglot pipelines with `{rixpress}`
 
@@ -188,8 +199,11 @@ list(
 - [GitHub Repository](https://github.com/b-rodrigues/rixpress)
 - [Website](https://b-rodrigues.github.io/rixpress/)
 - [Repository of demos](https://github.com/b-rodrigues/rixpress_demos)
+- Local demo in this repo: `scripts/rixpress_demo/`
 
-## T, a new DSL for polyglot data science
+# If time allows...
+
+## Bonus: T, a new DSL for polyglot data science
 
 - Reproducibility is often an afterthought, with ad-hoc tools
 - Nix eases the pain, but humans have to play ball! (biggest challenge)
@@ -231,11 +245,11 @@ my_analysis/
 
 ## T is reproducible by design
 
-- Add R, Python or Julia dependecies to `tproject.toml`
+- Add R, Python or Julia dependencies to `tproject.toml`
 - Run `t update`
 - Exit the temporary shell and run `nix develop`
 - Environment is set up, ready to use!
-- What pipelines look like [see here](https://github.com/b-rodrigues/t_demos/tree/master/r_py_xgboost_t)
+- What pipelines look like: [GitHub repo](https://github.com/b-rodrigues/t_demos/tree/master/r_py_xgboost_t) or local demo `scripts/t_demo/r_py_xgboost_t/`
 
 ## Learning a new language in 2026?!
 
@@ -247,7 +261,7 @@ my_analysis/
 ## Caveat Emptor
 
 - This is a 100% vibe-coded side-project by yours truly...
-- ...but throughly tested (2000+ unit tests and 60+ end-to-end tests)
+- ...but thoroughly tested (2000+ unit tests and 60+ end-to-end tests)
 - I wanted to stress-test the idea of a "reproducible by design" language
 - Challenges: input/output between languages
 

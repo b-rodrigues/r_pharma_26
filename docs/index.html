@@ -442,7 +442,8 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Bruno Rodrigues">
-  <title>Reproducible data science with Nix and T</title>
+  <meta name="dcterms.date" content="2026-10-01">
+  <title>A Practical Introduction to Reproducible R with Nix &amp; rix</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -1056,7 +1057,8 @@ margin-right: 0; }
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Reproducible data science with Nix and T</h1>
+  <h1 class="title">A Practical Introduction to Reproducible R with Nix &amp; rix</h1>
+  <p class="subtitle">R/Pharma 2026 Workshop (Sep 28 – Oct 1) • Conference: Oct 20 – 21</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -1066,6 +1068,7 @@ Bruno Rodrigues
 </div>
 </div>
 
+  <p class="date">2026-10-01</p>
 </section>
 <section id="intro-who-am-i" class="slide level2">
 <h2>Intro: Who am I</h2>
@@ -1119,14 +1122,21 @@ Bruno Rodrigues
 <section id="intro-where-to-find-the-code" class="slide level2">
 <h2>Intro: where to find the code</h2>
 <p>Slides available online:</p>
-<p><a href="https://b-rodrigues.github.io/repro_r_pharma">https://b-rodrigues.github.io/repro_r_pharma</a></p>
+<p><a href="https://b-rodrigues.github.io/r_pharma_26">https://b-rodrigues.github.io/r_pharma_26</a></p>
 <p>Code available here:</p>
-<p><a href="https://github.com/b-rodrigues/repro_r_pharma">https://github.com/b-rodrigues/repro_r_pharma</a></p>
+<p><a href="https://github.com/b-rodrigues/r_pharma_26">https://github.com/b-rodrigues/r_pharma_26</a></p>
 </section>
 <section id="what-ill-be-talking-about" class="slide level2">
 <h2>What I’ll be talking about</h2>
 <ul>
-<li class="fragment">Reproducibility of data projects</li>
+<li class="fragment">The reproducibility challenge in R (and limits of <code>{renv}</code> &amp; Docker)</li>
+<li class="fragment">Introduction to the Nix package manager</li>
+<li class="fragment"><code>{rix}</code>: generating declarative, reproducible R environments</li>
+<li class="fragment">Interactive workflows (RStudio, Positron, VS Code)</li>
+<li class="fragment">Production pipelines with <code>{targets}</code> and Nix</li>
+<li class="fragment">Nix in production: Docker, Shiny, and GitHub Actions</li>
+<li class="fragment">Polyglot pipelines with <code>{rixpress}</code></li>
+<li class="fragment"><strong>Bonus (if time allows)</strong>: A peek at <strong>T</strong>, a language reproducible by design</li>
 </ul>
 </section>
 <section id="available-solutions-for-r" class="slide level2">
@@ -1181,12 +1191,12 @@ Bruno Rodrigues
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href aria-label="1"></a><span class="fu">library</span>(rix)</span>
 <span id="cb1-2"><a href aria-label="2"></a></span>
-<span id="cb1-3"><a href aria-label="3"></a><span class="fu">rix</span>(<span class="at">date =</span> <span class="st">&quot;2025-06-13&quot;</span>,</span>
+<span id="cb1-3"><a href aria-label="3"></a><span class="fu">rix</span>(<span class="at">date =</span> <span class="st">&quot;2026-09-23&quot;</span>,</span>
 <span id="cb1-4"><a href aria-label="4"></a>    <span class="at">r_pkgs =</span> <span class="fu">c</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>),</span>
 <span id="cb1-5"><a href aria-label="5"></a>    <span class="at">system_pkgs =</span> <span class="cn">NULL</span>,</span>
 <span id="cb1-6"><a href aria-label="6"></a>    <span class="at">git_pkgs =</span> <span class="cn">NULL</span>,</span>
 <span id="cb1-7"><a href aria-label="7"></a>    <span class="at">tex_pkgs =</span> <span class="cn">NULL</span>,</span>
-<span id="cb1-8"><a href aria-label="8"></a>    <span class="at">ide =</span> <span class="st">&quot;code&quot;</span>,</span>
+<span id="cb1-8"><a href aria-label="8"></a>    <span class="at">ide =</span> <span class="st">&quot;rstudio&quot;</span>,</span>
 <span id="cb1-9"><a href aria-label="9"></a>    <span class="at">project_path =</span> <span class="st">&quot;.&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
@@ -1207,7 +1217,7 @@ Bruno Rodrigues
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href aria-label="1"></a><span class="fu">rix</span>(<span class="at">date =</span> <span class="st">&quot;2025-06-09&quot;</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href aria-label="1"></a><span class="fu">rix</span>(<span class="at">date =</span> <span class="st">&quot;2026-01-14&quot;</span>,</span>
 <span id="cb2-2"><a href aria-label="2"></a>    <span class="at">r_pkgs =</span> <span class="fu">c</span>(<span class="st">&quot;tidyr&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;languageserver&quot;</span>),</span>
 <span id="cb2-3"><a href aria-label="3"></a>    <span class="at">py_conf =</span> <span class="fu">list</span>(</span>
 <span id="cb2-4"><a href aria-label="4"></a>      <span class="at">py_version =</span> <span class="st">&quot;3.13&quot;</span>, </span>
@@ -1232,6 +1242,8 @@ Bruno Rodrigues
 <li class="fragment">Nix and Docker: <code>scripts/nix_expressions/04_docker/</code></li>
 <li class="fragment">Nix and <code>{shiny}</code>: <code>scripts/nix_expressions/05_shiny</code></li>
 <li class="fragment">GitHub Actions: <a href="https://github.com/b-rodrigues/rix_paper/tree/master">see here</a></li>
+<li class="fragment">Polyglot pipelines with <code>{rixpress}</code>: <code>scripts/rixpress_demo/</code></li>
+<li class="fragment">Polyglot pipelines with <strong>T</strong> (bonus): <code>scripts/t_demo/r_py_xgboost_t/</code></li>
 </ul>
 </section>
 <section id="polyglot-pipelines-with-rixpress" class="slide level2">
@@ -1266,10 +1278,16 @@ Bruno Rodrigues
 <li class="fragment"><a href="https://github.com/b-rodrigues/rixpress">GitHub Repository</a></li>
 <li class="fragment"><a href="https://b-rodrigues.github.io/rixpress/">Website</a></li>
 <li class="fragment"><a href="https://github.com/b-rodrigues/rixpress_demos">Repository of demos</a></li>
+<li class="fragment">Local demo in this repo: <code>scripts/rixpress_demo/</code></li>
 </ul>
 </section>
-<section id="t-a-new-dsl-for-polyglot-data-science" class="slide level2">
-<h2>T, a new DSL for polyglot data science</h2>
+<section>
+<section id="if-time-allows" class="title-slide slide level1 center">
+<h1>If time allows…</h1>
+
+</section>
+<section id="bonus-t-a-new-dsl-for-polyglot-data-science" class="slide level2">
+<h2>Bonus: T, a new DSL for polyglot data science</h2>
 <ul>
 <li class="fragment">Reproducibility is often an afterthought, with ad-hoc tools</li>
 <li class="fragment">Nix eases the pain, but humans have to play ball! (biggest challenge)</li>
@@ -1306,11 +1324,11 @@ Bruno Rodrigues
 <section id="t-is-reproducible-by-design-2" class="slide level2">
 <h2>T is reproducible by design</h2>
 <ul>
-<li class="fragment">Add R, Python or Julia dependecies to <code>tproject.toml</code></li>
+<li class="fragment">Add R, Python or Julia dependencies to <code>tproject.toml</code></li>
 <li class="fragment">Run <code>t update</code></li>
 <li class="fragment">Exit the temporary shell and run <code>nix develop</code></li>
 <li class="fragment">Environment is set up, ready to use!</li>
-<li class="fragment">What pipelines look like <a href="https://github.com/b-rodrigues/t_demos/tree/master/r_py_xgboost_t">see here</a></li>
+<li class="fragment">What pipelines look like: <a href="https://github.com/b-rodrigues/t_demos/tree/master/r_py_xgboost_t">GitHub repo</a> or local demo <code>scripts/t_demo/r_py_xgboost_t/</code></li>
 </ul>
 </section>
 <section id="learning-a-new-language-in-2026" class="slide level2">
@@ -1326,7 +1344,7 @@ Bruno Rodrigues
 <h2>Caveat Emptor</h2>
 <ul>
 <li class="fragment">This is a 100% vibe-coded side-project by yours truly…</li>
-<li class="fragment">…but throughly tested (2000+ unit tests and 60+ end-to-end tests)</li>
+<li class="fragment">…but thoroughly tested (2000+ unit tests and 60+ end-to-end tests)</li>
 <li class="fragment">I wanted to stress-test the idea of a “reproducible by design” language</li>
 <li class="fragment">Challenges: input/output between languages</li>
 </ul>
@@ -1358,7 +1376,7 @@ Bruno Rodrigues
 </ul>
 <p>Thanks!</p>
 
-</section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

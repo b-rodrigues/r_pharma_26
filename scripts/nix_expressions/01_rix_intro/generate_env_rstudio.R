@@ -1,7 +1,7 @@
 library(rix)
 
 rix(
-  date = "2026-01-14",
+  date = "2026-09-23",
   r_pkgs = c("dplyr", "ggplot2"),
   system_pkgs = NULL,
   git_pkgs = NULL,
