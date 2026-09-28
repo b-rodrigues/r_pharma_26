@@ -1,0 +1,58 @@
+{
+  "derivations": [
+    {
+      "deriv_name": ["mtcars_pl"],
+      "depends": [],
+      "decoder": {},
+      "type": ["rxp_py"],
+      "noop_build": [false],
+      "pipeline_group": ["default"],
+      "pipeline_color": {}
+    },
+    {
+      "deriv_name": ["mtcars_pl_am"],
+      "depends": ["mtcars_pl"],
+      "decoder": ["pickle.load"],
+      "type": ["rxp_py"],
+      "noop_build": [false],
+      "pipeline_group": ["default"],
+      "pipeline_color": {}
+    },
+    {
+      "deriv_name": ["mtcars_head"],
+      "depends": ["mtcars_pl_am"],
+      "decoder": ["read.csv"],
+      "type": ["rxp_r"],
+      "noop_build": [false],
+      "pipeline_group": ["default"],
+      "pipeline_color": {}
+    },
+    {
+      "deriv_name": ["mtcars_tail_py"],
+      "depends": ["mtcars_head"],
+      "decoder": ["read_from_csv"],
+      "type": ["rxp_py"],
+      "noop_build": [false],
+      "pipeline_group": ["default"],
+      "pipeline_color": {}
+    },
+    {
+      "deriv_name": ["mtcars_mpg"],
+      "depends": ["mtcars_tail_py"],
+      "decoder": ["read.csv"],
+      "type": ["rxp_r"],
+      "noop_build": [false],
+      "pipeline_group": ["default"],
+      "pipeline_color": {}
+    },
+    {
+      "deriv_name": ["page"],
+      "depends": ["mtcars_head", "mtcars_mpg", "mtcars_pl"],
+      "decoder": {},
+      "type": ["rxp_qmd"],
+      "noop_build": [false],
+      "pipeline_group": ["default"],
+      "pipeline_color": {}
+    }
+  ]
+}

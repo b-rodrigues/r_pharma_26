@@ -1,0 +1,35 @@
+---
+title: "Loading derivations outputs in a quarto doc"
+format:
+  html:
+    embed-resources: true
+    toc: true
+---
+
+![Meme](images/meme.png)
+
+The command below loads the path to `mtcars_head`. It is a csv
+file, so the path gets returned:
+
+```{r}
+rixpress::rxp_read("mtcars_head")
+```
+
+But if it were an R object, it would be shown directly, like
+for `mtcars_mpg`:
+
+```{r}
+rixpress::rxp_read("mtcars_mpg")
+```
+
+Python objects also get shown automatically:
+
+```{r}
+rixpress::rxp_read("mtcars_pl")
+```
+
+The lines below come from another QMD file and are included here
+using the `include` shortcode:
+
+{{< include content.qmd >}}
+

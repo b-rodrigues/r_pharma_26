@@ -1,0 +1,35 @@
+---
+title: "XGBoost Polyglot T Demo"
+format: html
+filters:
+  - tlang
+---
+
+# Introduction
+
+This demo showcases a machine learning pipeline where training is done in **Python** (via XGBoost) and evaluation (confusion matrix) is done in **R** (via yardstick), all orchestrated by **T**.
+
+# Evaluation Metrics
+
+We can access the accuracy score calculated in Python.
+
+```{t}
+#| label: accuracy
+acc_node = read_node("accuracy")
+accuracy = t_read_json(acc_node.path)
+print(str_join(["Accuracy: ", to_string(accuracy * 100), "%"]))
+```
+
+# Model Performance
+
+The T language manages the transfer of the prediction data from Python to R as an **Arrow** table.
+
+```{t}
+#| label: predictions
+node_cm = read_node("confusion_matrix")
+print(str_join(["Confusion matrix artifact path: ", node_cm.path]))
+```
+
+# Conclusion
+
+T enables using the best tools for each stage of the ML lifecycle, such as XGBoost for performance and yardstick for elegant evaluation.
