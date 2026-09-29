@@ -18,7 +18,7 @@ dataset_np = loadtxt("data/pima-indians-diabetes.csv", delimiter=",")
   splits = pyn(
     command = <{
 from sklearn.model_selection import train_test_split
-splits = train_test_split(X, Y, test_size=0.33, random_state=7)
+splits = train_test_split(X, Y, test_size=0.23, random_state=7)
     }>
   )
 
@@ -45,7 +45,7 @@ trained_model = XGBClassifier(use_label_encoder=False, eval_metric="logloss").fi
 from pandas import DataFrame
 combined_df = DataFrame({"target": y_test, "prediction": y_pred})
     }>,
-    serializer = ^arrow
+    serializer = ^ipc
   )
 
   -- Confusion matrix in R
@@ -59,7 +59,7 @@ cm_obj = combined_df %>%
 confusion_matrix = as.data.frame(cm_obj$table)
     }>,
     serializer = ^json,
-    deserializer = ^arrow
+    deserializer = ^ipc
   )
 
   -- Accuracy score in Python
@@ -77,4 +77,4 @@ accuracy = accuracy_score(y_test, y_pred)
 
 -- Materialize
 populate_pipeline(p, build = true, verbose=1)
-pipeline_copy()
+--pipeline_copy()

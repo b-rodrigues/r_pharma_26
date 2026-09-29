@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:rstats-on-nix/nixpkgs/2026-09-23";
     flake-utils.url = "github:numtide/flake-utils";
-    t-lang.url = "github:b-rodrigues/tlang/v0.55.3";
+    t-lang.url = "github:b-rodrigues/tlang/v0.55.4";
   };
 
   nixConfig = {
@@ -62,7 +62,7 @@
         });
 
         # Python environment
-        py-env = pkgs.python313.withPackages (python-pkgs: with python-pkgs; [
+        py-env = (pkgs.python313.withPackages (python-pkgs: with python-pkgs; [
           deepdiff
           numpy
           pandas
@@ -73,7 +73,11 @@
           nbclient
           nbformat
           pyyaml
-        ]);
+        ])).override {
+          makeWrapperArgs = [
+            "--prefix" "LD_LIBRARY_PATH" ":" "${pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc.lib pkgs.zlib ]}"
+          ];
+        };
 
         # Julia environment
         juliaPkg = pkgs.julia-lts.withPackages [ "JSON" ];
@@ -97,6 +101,16 @@
           shellHook = ''
             export PYTHONPATH="${t-lang.packages.${system}.default}/share/tlang/py-package/src:''${PYTHONPATH:-}"
             export JULIA_LOAD_PATH=":${t-lang.packages.${system}.tlang-julia-path}:''${JULIA_LOAD_PATH:-}"
+            # Export R library paths for editors that bypass the r-env wrapper (e.g. Positron).
+            # The r-env binary wrapper sets R_LIBS_SITE internally. Positron reads R_HOME_DIR
+            # from the shim and then starts base R directly, so re-export here for direnv.
+            if command -v R >/dev/null 2>&1; then
+              _t_r_libs="$(R --no-init-file --no-site-file --slave --no-restore -e 'cat(Sys.getenv("R_LIBS_SITE"))' 2>/dev/null)"
+              if [ -n "$_t_r_libs" ]; then
+                export R_LIBS_SITE="$_t_r_libs:''${R_LIBS_SITE:-}"
+              fi
+              unset _t_r_libs
+            fi
             # Create a local Julia depot directory for sandbox guards
             julia_depot_dir="$PWD/.t_julia_depot"
             mkdir -p "$julia_depot_dir/config"

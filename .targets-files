@@ -70,6 +70,8 @@
 .quarto/xref/80cc70c5
 .quarto/xref/9f63d975
 .quarto/xref/INDEX
+.quarto/xref/bec6077a
+.quarto/xref/cd15678e
 .targets-files
 .targets-runs/
 _freeze/index/execute-results/pptx.json
@@ -151,5 +153,3 @@ docs/index.pptx
 result
 .gitignore
 .quarto/project-cache/deno-kv-file
-.quarto/project-cache/deno-kv-file-shm
-.quarto/project-cache/deno-kv-file-wal
