@@ -15,7 +15,7 @@ We can access the accuracy score calculated in Python.
 
 ```{t}
 #| label: accuracy
-acc_node = read_node("accuracy")
+acc_node = read_node(p.accuracy)
 accuracy = t_read_json(acc_node.path)
 print(str_join(["Accuracy: ", to_string(accuracy * 100), "%"]))
 ```
@@ -26,7 +26,7 @@ The T language manages the transfer of the prediction data from Python to R as a
 
 ```{t}
 #| label: predictions
-node_cm = read_node("confusion_matrix")
+node_cm = read_node(p.confusion_matrix)
 print(str_join(["Confusion matrix artifact path: ", node_cm.path]))
 ```
 
