@@ -18,7 +18,7 @@ dataset_np = loadtxt("data/pima-indians-diabetes.csv", delimiter=",")
   splits = pyn(
     command = <{
 from sklearn.model_selection import train_test_split
-splits = train_test_split(X, Y, test_size=0.33, random_state=7)
+splits = train_test_split(X, Y, test_size=0.23, random_state=7)
     }>
   )
 

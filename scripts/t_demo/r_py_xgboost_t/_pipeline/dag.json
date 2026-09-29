@@ -1,0 +1,58 @@
+[
+{
+  "node_name": "dataset_np",
+  "depends": []
+},
+{
+  "node_name": "X",
+  "depends": ["dataset_np"]
+},
+{
+  "node_name": "Y",
+  "depends": ["dataset_np"]
+},
+{
+  "node_name": "splits",
+  "depends": ["X", "Y"]
+},
+{
+  "node_name": "X_train",
+  "depends": ["splits"]
+},
+{
+  "node_name": "X_test",
+  "depends": ["splits"]
+},
+{
+  "node_name": "y_train",
+  "depends": ["splits"]
+},
+{
+  "node_name": "y_test",
+  "depends": ["splits"]
+},
+{
+  "node_name": "trained_model",
+  "depends": ["X_train", "y_train"]
+},
+{
+  "node_name": "y_pred",
+  "depends": ["X_test", "trained_model"]
+},
+{
+  "node_name": "combined_df",
+  "depends": ["y_pred", "y_test"]
+},
+{
+  "node_name": "confusion_matrix",
+  "depends": ["combined_df"]
+},
+{
+  "node_name": "accuracy",
+  "depends": ["y_pred", "y_test"]
+},
+{
+  "node_name": "report",
+  "depends": ["accuracy", "confusion_matrix"]
+}
+]
