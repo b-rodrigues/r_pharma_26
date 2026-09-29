@@ -261,7 +261,7 @@ my_analysis/
 ## Caveat Emptor
 
 - This is a 100% vibe-coded side-project by yours truly...
-- ...but thoroughly tested (2000+ unit tests and 60+ end-to-end tests)
+- ...but thoroughly tested (6000+ unit tests and 80+ end-to-end tests)
 - I wanted to stress-test the idea of a "reproducible by design" language
 - Challenges: input/output between languages
 
