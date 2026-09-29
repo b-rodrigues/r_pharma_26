@@ -188,7 +188,7 @@ list(
   rxp_py(…),         # Another Python step
   rxp_py2r(…),       # Back to R
   rxp_r(…)           # Final step
-) |> rixpress()
+) |> rxp_populate()
 ```
 
 - Each step is named and typed (`py`, `r`, `r2py`, etc.)
