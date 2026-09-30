@@ -50,14 +50,10 @@ combined_df = DataFrame({"target": y_test, "prediction": y_pred})
 
   -- Confusion matrix in R
   confusion_matrix = rn(
-    command = <{ 
-library(yardstick)
-library(dplyr)
-cm_obj = combined_df %>%
-  mutate(target = as.factor(target), prediction = as.factor(prediction)) %>%
-  conf_mat(truth = target, estimate = prediction)
-confusion_matrix = as.data.frame(cm_obj$table)
+    command = <{
+      confusion_matrix = get_cm(combined_df)
     }>,
+    functions = ["src/get_cm.R"],
     serializer = ^json,
     deserializer = ^ipc
   )

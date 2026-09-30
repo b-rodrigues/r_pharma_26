@@ -94,7 +94,7 @@ let
 
   toml = if builtins.pathExists ../tproject.toml then builtins.fromTOML (builtins.readFile ../tproject.toml) else {};
   
-    rSerializerPackages = [ "arrow" "dplyr" "jsonlite" "knitr" "rmarkdown" "yardstick" ];
+    rSerializerPackages = [ "arrow" "jsonlite" "knitr" "rmarkdown" ];
     pySerializerPackages = [ "ipykernel" "nbclient" "nbformat" "pandas" "pyarrow" "pyyaml" ];
   rPackagesList = (toml.r-dependencies or {}).packages or [];
     rRenvPackagesList = [  ];
@@ -4278,11 +4278,7 @@ EOF
 
 
 
-
-      cat <<'EOF' >> node_script.R
-library(yardstick)
-library(dplyr)
-EOF
+      echo "source('src/get_cm.R')" >> node_script.R
 
       echo "if (file.exists(file.path(\"$T_NODE_combined_df\", \"class\")) && readLines(file.path(\"$T_NODE_combined_df\", \"class\"), 1) == \"VError\") {" >> node_script.R
       echo "  dep_combined_df <- r_read_json(file.path(\"$T_NODE_combined_df\", \"artifact\"))" >> node_script.R
@@ -4296,10 +4292,7 @@ EOF
       echo "  local({" >> node_script.R
       echo "    tryCatch({" >> node_script.R
       cat <<'EOF' >> node_script.R
-cm_obj = combined_df %>%
-  mutate(target = as.factor(target), prediction = as.factor(prediction)) %>%
-  conf_mat(truth = target, estimate = prediction)
-confusion_matrix = as.data.frame(cm_obj$table)
+confusion_matrix = get_cm(combined_df)
 EOF
       echo "    }, error = function(e) {" >> node_script.R
       echo "      r_write_error(e, \"$out/artifact\")" >> node_script.R
