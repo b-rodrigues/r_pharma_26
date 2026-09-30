@@ -1,0 +1,44 @@
+[
+  {
+    "derivation": "all-derivations",
+    "build_success": true,
+    "path": "/nix/store/ml7sfyajs086b1532520i6n3wgrscx1b-all-derivations",
+    "output": ["images", "mtcars_head", "mtcars_mpg", "mtcars_pl", "mtcars_pl_am", "mtcars_tail_py", "page.html"]
+  },
+  {
+    "derivation": "mtcars_head",
+    "build_success": true,
+    "path": "/nix/store/2g5kbbhj8kfynirfn9hbdmr8qza0zf41-mtcars_head",
+    "output": "mtcars_head"
+  },
+  {
+    "derivation": "mtcars_mpg",
+    "build_success": true,
+    "path": "/nix/store/gka0gj52949mkdisbghj6nwyg7j5rimp-mtcars_mpg",
+    "output": "mtcars_mpg"
+  },
+  {
+    "derivation": "mtcars_pl",
+    "build_success": true,
+    "path": "/nix/store/4pfy8px5z3midc8dnpfl5jffkcvax5np-mtcars_pl",
+    "output": "mtcars_pl"
+  },
+  {
+    "derivation": "mtcars_pl_am",
+    "build_success": true,
+    "path": "/nix/store/23wb6bmvb5x1l7wiy2c0hvwd0ri6ihl9-mtcars_pl_am",
+    "output": "mtcars_pl_am"
+  },
+  {
+    "derivation": "mtcars_tail_py",
+    "build_success": true,
+    "path": "/nix/store/pa1jf02vzw206nmcjsdhpqf1b4xn8mbf-mtcars_tail_py",
+    "output": "mtcars_tail_py"
+  },
+  {
+    "derivation": "page",
+    "build_success": true,
+    "path": "/nix/store/g7cf5ib51jv89cnc5x2wvvrpy86fivki-page",
+    "output": ["images", "page.html"]
+  }
+]
