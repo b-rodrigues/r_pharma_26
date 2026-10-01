@@ -2,7 +2,7 @@
 title: "A Practical Introduction to Reproducible R with Nix & rix"
 subtitle: "R/Pharma 2026 Workshop (Sep 28 – Oct 1) • Conference: Oct 20 – 21"
 date: "October 1, 2026"
-author: "Bruno Rodrigues"
+author: "Bruno Rodrigues & Eric Nantz"
 format:
   revealjs:
     embed-resources: true
