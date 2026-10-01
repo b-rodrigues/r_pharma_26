@@ -65,9 +65,11 @@
 .quarto/_freeze/index/libs/revealjs/plugin/zoom/zoom.js
 .quarto/project-cache/bf5b60f8e59b047f99413e09fb957aba
 .quarto/project-cache/f8f8947983eeef1bfc930e5f2e6f7ed6
+.quarto/xref/09a4e34e
 .quarto/xref/0b23d1da
 .quarto/xref/113715cb
 .quarto/xref/163185ce
+.quarto/xref/16bfb449
 .quarto/xref/2392d0c0
 .quarto/xref/409e5af6
 .quarto/xref/76b338c9
@@ -163,6 +165,7 @@ docs/img/play_store.png
 docs/img/rene_arend.jpg
 docs/img/repro_puzzle.png
 docs/img/repro_puzzle_nix.png
+docs/img/rpodcast-hexagon.png
 docs/index.html
 docs/index.pptx
 result
