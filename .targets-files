@@ -68,8 +68,10 @@
 .quarto/xref/0b23d1da
 .quarto/xref/113715cb
 .quarto/xref/409e5af6
+.quarto/xref/76b338c9
 .quarto/xref/7fceb5b5
 .quarto/xref/80cc70c5
+.quarto/xref/89a40f27
 .quarto/xref/98598714
 .quarto/xref/9c37112f
 .quarto/xref/9c943219
@@ -149,11 +151,14 @@ _targets/meta/meta
 _targets/meta/process
 _targets/meta/progress
 _targets/objects/pres_change
+docs/img/fhs-vs-nix.png
 docs/img/luxembourg-wi.png
 docs/img/luxembourg.png
 docs/img/luxembourg2.png
 docs/img/play_store.png
 docs/img/rene_arend.jpg
+docs/img/repro_puzzle.png
+docs/img/repro_puzzle_nix.png
 docs/index.html
 docs/index.pptx
 result
