@@ -54,6 +54,31 @@ and Higher Education in Luxembourg
 
 ![](img/rene_arend.jpg){fig-align="center"}
 
+## Intro: Teaching Assistant
+
+::: {.columns}
+
+
+::: {.column width="40%"}
+
+::: {style="text-align:center;"}
+![Eric Nantz](img/rpodcast-hexagon.png)
+:::
+:::
+
+::: {.column width="60%"}
+
+::: {.nonincremental}
+* Senior Director - Statistical Innovation Center (Eli Lilly)
+* Co-lead of [R Consortium Submissions Working Group](https://rconsortium.github.io/submissions-wg/)
+* Co-organizer of [R Pharma](https://rinpharma.com/)
+* Evangelist of all things open-source: R, Linux, Nix!
+:::
+
+:::
+
+:::
+
 ## Intro: where to find the code
 
 Slides available online:
@@ -63,6 +88,10 @@ Slides available online:
 Code available here:
 
 [https://github.com/b-rodrigues/r_pharma_26](https://github.com/b-rodrigues/r_pharma_26)
+
+Eric's demonstration available here:
+
+[https://github.com/RConsortium/submissions-pilot2-nixversion](https://github.com/RConsortium/submissions-pilot2-nixversion)
 
 ## What I'll be talking about
 
