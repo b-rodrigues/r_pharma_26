@@ -66,14 +66,15 @@ Code available here:
 
 ## What I'll be talking about
 
-- The reproducibility challenge in R (and limits of `{renv}` & Docker)
-- Introduction to the Nix package manager
-- `{rix}`: generating declarative, reproducible R environments
-- Interactive workflows (RStudio, Positron, VS Code)
-- Production pipelines with `{targets}` and Nix
-- Nix in production: Docker, Shiny, and GitHub Actions
-- Polyglot pipelines with `{rixpress}`
-- **Bonus (if time allows)**: A peek at **T**, a language reproducible by design
+The puzzle you know:
+
+![](img/repro_puzzle.png){fig-align="center"}
+
+## What I'll be talking about
+
+The puzzle with Nix:
+
+![](img/repro_puzzle_nix.png){fig-align="center"}
 
 ## Available solutions for R
 
@@ -87,7 +88,7 @@ Code available here:
 - But:
   - Not inherently reproducible
 
-## The Nix package manager (1/2)
+## The Nix package manager (1/3)
 
 Package manager: tool for installing and managing *packages*
 
@@ -99,13 +100,17 @@ A popular package manager:
 
 ![Google Play Store](img/play_store.png)
 
-## The Nix package manager (2/2)
+## The Nix package manager (2/3)
 
 - To ensure reproducibility: R, R packages, and other dependencies must be
   explicitly managed
 - Nix is a package manager truly focused on reproducible builds
 - Nix manages everything using a single text file (called a Nix expression)!
 - These expressions *always* produce exactly the same result
+
+## The Nix package manager (3/3)
+
+![fhs vs nix](img/fhs-vs-nix.png)
 
 ## rix: reproducible development environments with Nix (1/2)
 
