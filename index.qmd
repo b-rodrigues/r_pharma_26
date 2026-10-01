@@ -110,7 +110,7 @@ A popular package manager:
 
 ## The Nix package manager (3/3)
 
-![fhs vs nix](img/fhs-vs-nix.png)
+![To ensure reproducibility, Nix installs the whole universe onto your computer](img/fhs-vs-nix.png)
 
 ## rix: reproducible development environments with Nix (1/2)
 
